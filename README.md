@@ -10,20 +10,10 @@ minikube start
 
 ### Install Argo CD and ApplicationSet via Helm
 ```bash
-helm repo add argo https://argoproj.github.io/argo-helm
-helm repo update
-
-kubectl create ns argocd || true
+kubectl create namespace argocd || true
 
 # Argo CD
-helm upgrade --install argocd argo/argo-cd \
-  --namespace argocd \
-  --set controller.replicas=1 \
-  --set server.service.type=ClusterIP
-
-# ApplicationSet controller
-helm upgrade --install argocd-applicationset argo/argocd-applicationset \
-  --namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
 ### Apply the ApplicationSet(s)

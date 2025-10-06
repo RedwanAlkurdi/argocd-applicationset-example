@@ -22,7 +22,7 @@ spec:
         helm:
           valuesObject:
             fullnameOverride: '{{name}}'
-            replicaCount: {{replicaCount}}
+            replicaCount: '{{replicaCount}}'
             image:
               repository: '{{image_repository}}'
               tag: '{{image_tag}}'
