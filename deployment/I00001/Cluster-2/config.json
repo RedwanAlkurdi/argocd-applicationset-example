@@ -2,7 +2,7 @@
   "name": "demo-app-cluster2",
   "namespace": "default",
   "image_repository": "bitnami/nginx",
-  "image_tag": "1.27.1-debian-12-r5",
+  "image_tag": "latest",
   "replicaCount": 1,
   "service_type": "ClusterIP",
   "service_port": 80
