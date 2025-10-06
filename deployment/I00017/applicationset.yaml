@@ -6,30 +6,30 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: REPO_URL_HERE
+        repoURL: https://github.com/RedwanAlkurdi/argocd-applicationset-example.git
         revision: main
         files:
-          - path: ArgoCD_Appset_example/data/I00017/**/config.json
+          - path: deployment/I00017/**/config.json
   template:
     metadata:
       name: '{{name}}'
     spec:
       project: default
       source:
-        repoURL: REPO_URL_HERE
-        targetRevision: main
-        path: ArgoCD_Appset_example/chart/simple-demo
+        repoURL: https://charts.bitnami.com/bitnami
+        chart: nginx
+        targetRevision: 18.2.0
         helm:
           valuesObject:
-            name: '{{name}}'
-            namespace: '{{namespace}}'
+            fullnameOverride: '{{name}}'
             replicaCount: {{replicaCount}}
             image:
               repository: '{{image_repository}}'
               tag: '{{image_tag}}'
             service:
               type: '{{service_type}}'
-              port: {{service_port}}
+              ports:
+                http: {{service_port}}
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{namespace}}'

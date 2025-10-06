@@ -6,10 +6,10 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: REPO_URL_HERE
+        repoURL: https://github.com/RedwanAlkurdi/argocd-applicationset-example.git
         revision: main
         files:
-          - path: ArgoCD_Appset_example/data/I00001/**/config.json
+          - path: deployment/I00001/**/config.json
   template:
     metadata:
       name: '{{name}}'
