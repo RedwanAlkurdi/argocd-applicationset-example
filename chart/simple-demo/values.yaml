@@ -1,9 +1,0 @@
-name: demo
-namespace: default
-replicaCount: 1
-image:
-  repository: nginx
-  tag: "1.27"
-service:
-  type: ClusterIP
-  port: 80
