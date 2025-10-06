@@ -22,7 +22,7 @@ spec:
         helm:
           valuesObject:
             name: '{{name}}'
-            instances: {{instances}}
+            instances: '{{instances}}'
             image:
               tag: '{{image_tag}}'
             storage:
