@@ -1,0 +1,9 @@
+{
+  "name": "demo-${cust}-c${c}",
+  "namespace": "default",
+  "image_repository": "nginx",
+  "image_tag": "1.27",
+  "replicaCount": 1,
+  "service_type": "ClusterIP",
+  "service_port": 80
+}

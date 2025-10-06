@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applicationset-i00017
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: REPO_URL_HERE
+        revision: main
+        files:
+          - path: ArgoCD_Appset_example/data/I00017/**/config.json
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: REPO_URL_HERE
+        targetRevision: main
+        path: ArgoCD_Appset_example/chart/simple-demo
+        helm:
+          valuesObject:
+            name: '{{name}}'
+            namespace: '{{namespace}}'
+            replicaCount: {{replicaCount}}
+            image:
+              repository: '{{image_repository}}'
+              tag: '{{image_tag}}'
+            service:
+              type: '{{service_type}}'
+              port: {{service_port}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

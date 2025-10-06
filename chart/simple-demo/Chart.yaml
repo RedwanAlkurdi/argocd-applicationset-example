@@ -1,0 +1,6 @@
+apiVersion: v2
+name: simple-demo
+version: 0.1.0
+appVersion: "1.0.0"
+description: A very simple Helm chart to demonstrate Argo CD ApplicationSet rendering
+type: application
