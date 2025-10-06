@@ -19,11 +19,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ### Apply the ApplicationSet(s)
 - Apply customer I00001 only:
 ```bash
-kubectl apply -n argocd -f "ArgoCD_Appset_example/deployment/I00001/applicationset.yaml"
+kubectl apply -n argocd -f "deployment/I00001/applicationset.yaml"
 ```
 - Or apply everything under `deployment/` (I00001 and I00017):
 ```bash
-kubectl apply -n argocd -f "ArgoCD_Appset_example/deployment/"
+kubectl apply -n argocd -f "deployment/"
 ```
 
 What it does
@@ -41,8 +41,8 @@ What it does
 {
   "name": "demo-I00001-c1",
   "namespace": "default",
-  "image_repository": "nginx",
-  "image_tag": "1.27",
+  "image_repository": "bitnami/nginx",
+  "image_tag": "latest",
   "replicaCount": 1,
   "service_type": "ClusterIP",
   "service_port": 80

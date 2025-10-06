@@ -1,6 +1,6 @@
 {
   "name": "demo-app-cluster3",
-  "namespace": "default",
+  "namespace": "nginx-3",
   "image_repository": "bitnami/nginx",
   "image_tag": "latest",
   "replicaCount": 1,
