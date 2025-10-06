@@ -1,8 +1,8 @@
 {
   "name": "demo-app-cluster1",
   "namespace": "default",
-  "image_repository": "nginx",
-  "image_tag": "1.27",
+  "image_repository": "bitnami/nginx",
+  "image_tag": "1.27.1-debian-12-r5",
   "replicaCount": 1,
   "service_type": "ClusterIP",
   "service_port": 80
