@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cnpg-appset-i00017
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/RedwanAlkurdi/argocd-applicationset-example.git
+        revision: main
+        files:
+          - path: deployment-cnpg/I00017/**/config.json
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://cloudnative-pg.github.io/charts
+        chart: cluster
+        targetRevision: 0.2.0
+        helm:
+          valuesObject:
+            name: '{{name}}'
+            instances: {{instances}}
+            image:
+              tag: '{{image_tag}}'
+            storage:
+              size: '{{storage_size}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

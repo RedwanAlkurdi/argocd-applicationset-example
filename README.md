@@ -32,6 +32,26 @@ What it does
   scans `deployment/Ixxxxx/**/config.json` per customer.
 - Each discovered JSON turns into an Argo CD Application that deploys Bitnami NGINX with values from the JSON.
 
+### Install CloudNativePG operator (required for CNPG clusters)
+```bash
+helm repo add cnpg https://cloudnative-pg.github.io/charts
+helm repo update
+
+kubectl create namespace cnpg-system || true
+helm upgrade --install cnpg-operator cnpg/cloudnative-pg \
+  --namespace cnpg-system
+```
+
+After the operator is running, you can apply the CNPG ApplicationSets:
+- Customer I00001 CNPG:
+```bash
+kubectl apply -n argocd -f "deployment-cnpg/I00001/applicationset.yaml"
+```
+- All CNPG under `deployment-cnpg/`:
+```bash
+kubectl apply -n argocd -f "deployment-cnpg/"
+```
+
 ### Repository layout
 - `deployment/I0000x/Cluster-y/config.json`: per-cluster JSON
 - `deployment/I0000x/applicationset.yaml`: ApplicationSet for that customer

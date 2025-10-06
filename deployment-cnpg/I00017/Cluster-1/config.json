@@ -1,0 +1,7 @@
+{
+  "name": "pg-I00017-c1",
+  "namespace": "cnpg-i00017-c1",
+  "instances": 2,
+  "storage_size": "1Gi",
+  "image_tag": "16.3"
+}
