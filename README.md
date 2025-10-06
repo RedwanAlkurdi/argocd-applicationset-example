@@ -73,23 +73,23 @@ flowchart TD
     A4[deployment/I00001/Cluster-3/config.json]
   end
 
-  subgraph ArgoCD[Argo CD in-cluster (namespace: argocd)]
+  subgraph ArgoCD[Argo CD in cluster - namespace argocd]
     AS[ApplicationSet Controller]
-    AP1[Rendered Application: I00001-c1]
-    AP2[Rendered Application: I00001-c2]
-    AP3[Rendered Application: I00001-c3]
+    AP1[Rendered Application I00001 c1]
+    AP2[Rendered Application I00001 c2]
+    AP3[Rendered Application I00001 c3]
   end
 
   subgraph Cluster[Kubernetes Cluster]
-    NS1[(Namespace from JSON: default)]
-    NS2[(Namespace from JSON: ...)]
-    NS3[(Namespace from JSON: ...)]
+    NS1[(Namespace from JSON default)]
+    NS2[(Namespace from JSON ...)]
+    NS3[(Namespace from JSON ...)]
 
-    D1[NGINX Deployment (Bitnami chart)]
+    D1[NGINX Deployment Bitnami chart]
     S1[Service]
-    D2[NGINX Deployment (Bitnami chart)]
+    D2[NGINX Deployment Bitnami chart]
     S2[Service]
-    D3[NGINX Deployment (Bitnami chart)]
+    D3[NGINX Deployment Bitnami chart]
     S3[Service]
   end
 
@@ -106,11 +106,11 @@ flowchart TD
   AS -->|template creates| AP2
   AS -->|template creates| AP3
 
-  AP1 -->|source: Bitnami nginx chart| D1
+  AP1 -->|source Bitnami nginx chart| D1
   AP1 --> S1
-  AP2 -->|source: Bitnami nginx chart| D2
+  AP2 -->|source Bitnami nginx chart| D2
   AP2 --> S2
-  AP3 -->|source: Bitnami nginx chart| D3
+  AP3 -->|source Bitnami nginx chart| D3
   AP3 --> S3
 
   D1 --- NS1
