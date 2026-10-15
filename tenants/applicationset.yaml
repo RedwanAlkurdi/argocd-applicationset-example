@@ -1,0 +1,40 @@
+# One Application per tenant JSON file. Add tenants/<ID>.json -> a namespace
+# appears; remove the file -> the namespace is pruned (together with
+# everything inside it, so be deliberate).
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tenant-spaces
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/RedwanAlkurdi/argocd-applicationset-example.git
+        revision: main
+        files:
+          - path: tenants/*.json
+  template:
+    metadata:
+      name: 'tenant-{{ .tenant }}'
+      labels:
+        tenant: '{{ .tenant }}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/RedwanAlkurdi/argocd-applicationset-example.git
+        targetRevision: main
+        path: charts/tenant-space
+        helm:
+          valuesObject:
+            tenant: '{{ .tenant }}'
+            description: '{{ .description }}'
+      destination:
+        server: https://kubernetes.default.svc
+        # Namespace is cluster-scoped; this is only the Helm release namespace.
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

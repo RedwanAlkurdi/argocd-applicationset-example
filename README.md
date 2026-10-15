@@ -130,3 +130,40 @@ flowchart TD
   D3 --- NS3
   S3 --- NS3
 ```
+
+## Tenant spaces: one namespace per customer (flat layout)
+
+A second, shallower variant. Instead of one ApplicationSet per customer with
+one JSON per cluster, a single ApplicationSet scans `tenants/*.json` and each
+file is one customer. The in-repo Helm chart `charts/tenant-space` creates
+exactly one resource: a namespace named after the tenant.
+
+```
+charts/tenant-space/          # Helm chart: renders a single Namespace
+tenants/applicationset.yaml   # one ApplicationSet, git files generator on tenants/*.json
+tenants/I00001.json           # one file per customer
+tenants/I00017.json
+```
+
+JSON per tenant:
+```json
+{
+  "tenant": "i00001",
+  "description": "Customer I00001"
+}
+```
+`tenant` becomes the namespace name, so it must be a lowercase DNS label.
+
+Apply the ApplicationSet:
+```bash
+kubectl apply -n argocd -f tenants/applicationset.yaml
+```
+
+Onboard a customer: add `tenants/<ID>.json` and push. The ApplicationSet
+controller re-reads the repo (every 3 minutes by default) and creates
+`Application/tenant-<id>`, which syncs the chart and creates the namespace.
+Deleting the file prunes the namespace and everything inside it.
+
+Note: the Argo CD install manifest needs `kubectl apply --server-side` on
+older kubectl versions, otherwise the ApplicationSet CRD fails on the
+annotation size limit.

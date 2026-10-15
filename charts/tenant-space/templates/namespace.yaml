@@ -1,0 +1,15 @@
+{{- $tenant := required "values.tenant is required" .Values.tenant }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $tenant | lower | quote }}
+  labels:
+    tenant: {{ $tenant | lower | quote }}
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    {{- with .Values.extraLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.description }}
+  annotations:
+    tenant-space/description: {{ . | quote }}
+  {{- end }}

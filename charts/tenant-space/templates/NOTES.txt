@@ -1,0 +1,1 @@
+Namespace "{{ .Values.tenant | lower }}" is managed by this release.

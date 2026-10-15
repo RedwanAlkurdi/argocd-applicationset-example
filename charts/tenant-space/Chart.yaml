@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tenant-space
+description: Creates a single namespace for one tenant. Nothing else.
+type: application
+version: 0.1.0
+appVersion: "1.0"

@@ -1,0 +1,9 @@
+# Tenant identifier. Becomes the namespace name, so it must be a valid
+# DNS label: lowercase letters, digits and '-' only.
+tenant: ""
+
+# Optional free-text description, stored as an annotation on the namespace.
+description: ""
+
+# Extra labels merged onto the namespace.
+extraLabels: {}
